@@ -56,3 +56,11 @@ terminalPID := 0
         WinSetAlwaysOnTop(1, "ahk_pid " terminalPID)
     }
 }
+
+OnExit(KillTerminal)
+KillTerminal(ExitReason, ExitCode) {
+    global terminalPID
+    if (terminalPID && ProcessExist(terminalPID)) {
+        ProcessClose(terminalPID)
+    }
+}
