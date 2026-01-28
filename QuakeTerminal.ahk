@@ -4,6 +4,7 @@
 
 ; Settings
 terminalExe := "powershell"
+terminalWorkingDir := "D:/"
 hideTitleBar := true
 
 ; Data
@@ -32,7 +33,7 @@ terminalPID := 0
         terminalWidth := screenWidth
         terminalHeight := screenHeight // 2
 
-        Run(terminalExe, , , &terminalPID)
+        Run(terminalExe, terminalWorkingDir, , &terminalPID)
 
         ; Wait for the window to be created
         maxWaitTime := 10000  ; milliseconds
