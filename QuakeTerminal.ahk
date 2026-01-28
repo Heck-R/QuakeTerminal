@@ -15,7 +15,7 @@ terminalPID := 0
     global hideTitleBar
 
     if (terminalPID && ProcessExist(terminalPID)) {
-        if (WinActive("ahk_pid " terminalPID)) {
+        if (WinExist("ahk_pid " terminalPID)) {
             ; Window is visible - hide it
             WinHide("ahk_pid " terminalPID)
         } else {
@@ -55,5 +55,7 @@ terminalPID := 0
             ; Remove title bar but keep resizable borders
             WinSetStyle("-0xC00000", "ahk_pid " terminalPID)  ; Remove WS_CAPTION (title bar)
         }
+
+        WinSetAlwaysOnTop(1, "ahk_pid " terminalPID)
     }
 }
