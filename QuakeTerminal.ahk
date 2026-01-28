@@ -16,10 +16,8 @@ terminalPID := 0
 
     if (terminalPID && ProcessExist(terminalPID)) {
         if (WinExist("ahk_pid " terminalPID)) {
-            ; Window is visible - hide it
             WinHide("ahk_pid " terminalPID)
         } else {
-            ; Window is hidden - show it
             WinShow("ahk_pid " terminalPID)
             WinActivate("ahk_pid " terminalPID)
         }
@@ -34,11 +32,10 @@ terminalPID := 0
         terminalWidth := screenWidth
         terminalHeight := screenHeight // 2
 
-        ; Start PowerShell and get the PID
         Run(terminalExe, , , &terminalPID)
 
         ; Wait for the window to be created
-        maxWaitTime := 10000  ; 10 seconds in milliseconds
+        maxWaitTime := 10000  ; milliseconds
         elapsedTime := 0
         while (!WinExist("ahk_pid " terminalPID)) {
             if (elapsedTime > maxWaitTime) {
@@ -48,12 +45,11 @@ terminalPID := 0
             elapsedTime += 100
         }
 
-        ; Move and resize the window
         WinMove(left, top, terminalWidth, terminalHeight, "ahk_pid " terminalPID)
 
         if (hideTitleBar) {
-            ; Remove title bar but keep resizable borders
-            WinSetStyle("-0xC00000", "ahk_pid " terminalPID)  ; Remove WS_CAPTION (title bar)
+            ; Remove WS_CAPTION (title bar)
+            WinSetStyle("-0xC00000", "ahk_pid " terminalPID)
         }
 
         WinSetAlwaysOnTop(1, "ahk_pid " terminalPID)
